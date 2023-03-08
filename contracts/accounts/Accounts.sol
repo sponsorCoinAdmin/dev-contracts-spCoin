@@ -32,9 +32,7 @@ contract Accounts is StructSerialization {
     /// @notice retreives the array index of a specific address.
     /// @param _accountKey public accountKey to set new balance
     function getAccountIndex(address _accountKey)
-        public
-        view
-        onlyOwnerOrRootAdmin(_accountKey)
+        public view onlyOwnerOrRootAdmin(_accountKey)
         returns (uint256)
     {
         if (isAccountInserted(_accountKey))
@@ -53,7 +51,17 @@ contract Accounts is StructSerialization {
         return accountIndex[_idx];
     }
 
-    
+    /// @notice retreives the account array records.
+    function getAccountArrayList() public view returns (string memory) {
+        string memory strAccountArray = "";
+        console.log("getAccountArrayList");   
+        for (uint256 i = 0; i < accountIndex.length; i++){
+            strAccountArray = concat(strAccountArray, toString(i), ", ", toString(accountIndex[i]));
+            if (i < accountIndex.length - 1)
+                strAccountArray = concat(strAccountArray, "\n");
+        }
+        return strAccountArray;
+    }
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
@@ -63,7 +71,7 @@ contract Accounts is StructSerialization {
     {
         require(isAccountInserted(_accountKey));
         return accountMap[_accountKey];
-    }
+    } 
 
     ////////////////////// BENEFICIARY REQUESTS //////////////////////////////
 
@@ -146,16 +154,6 @@ contract Accounts is StructSerialization {
     // 2. Require that Account has No Agents, account.accountAgentKeys must be zero (0).
     // 3. Require that Account is not a Sponsor.
     // 4. Require that Account is not an Agent.
-    function deleteAccount(address _accountKey) public view
-            onlyOwnerOrRootAdmin(_accountKey)
-        accountExists (_accountKey) 
-        hasNoAgents(_accountKey)
-        hasNoSponsors(_accountKey)
-        isNotASponsor(_accountKey)
-        isNotAnAgent(_accountKey) {
-    //     // ToDo Complete this function
-    }
-
     modifier accountExists (address _accountKey) {
         require (isAccountInserted(_accountKey) , "Account not found)");
         _;
@@ -179,6 +177,40 @@ contract Accounts is StructSerialization {
     modifier isNotAnAgent (address _accountKey) {
         require (getAccountAgentSponsorSize(_accountKey) == 0 , "Account is a Agent");
         _;
+    }
+
+    function deleteAccount(address _accountKey) public 
+            onlyOwnerOrRootAdmin(_accountKey)
+        accountExists (_accountKey) 
+        hasNoAgents(_accountKey)
+        hasNoSponsors(_accountKey)
+        isNotASponsor(_accountKey)
+        isNotAnAgent(_accountKey) {
+    console.log("ToDo Complete this function");
+        removeAccount(_accountKey);
+    }
+
+    function removeAccount(address account) 
+      internal {
+        console.log("removeAccount(", account, ")");  
+        console.log("accountIndex.length = ", accountIndex.length); 
+        for (uint i = 0; i < accountIndex.length; i++) {
+            console.log("foundAccount(", accountIndex[i], ")");  
+            if (accountIndex[i] == account) {
+                console.log("Deleting address[ ", i, "] = ", accountIndex[i]);
+                delete accountIndex[i];
+                while (i++ < accountIndex.length-1) { 
+                   accountIndex[i] = accountIndex[i+1];
+                   console.log("Resetted address[", i, "] =", accountIndex[i]);
+                }
+                accountIndex.pop();
+            }
+        }
+
+        console.log("PRINT NEW accountIndex");
+        for (uint i = 0; i < accountIndex.length; i++) {
+            console.log("address[", i, "] = ", accountIndex[i]);
+        }
     }
 
     /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////

@@ -3,7 +3,11 @@ pragma solidity ^0.8.19;
 /// @title ERC20 Contract
 
 import "./staking/AccountStakingManager.sol";
+import "./accounts/Accounts.sol";
+import "./accounts/Sponsors.sol";
+import "./accounts/Agents.sol";
 
+//contract Token is AccountStakingManager{
 contract Token is AccountStakingManager{
 
     // My Variables

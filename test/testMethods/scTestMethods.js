@@ -5,6 +5,8 @@ const {
   addAccountRecords,
   addPatreonSponsors,
   addSponsorAgents,
+  deleteAccount,
+  deletePatreonSponsors,
   getAccountKeys,
   getPatreonSponsorKeys,
   getSponsorAgentKeys,
@@ -87,5 +89,6 @@ module.exports = {
   addTestNetworkPatreonSponsors,
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
-  getTestHHAccountArrayKeys
+  getTestHHAccountArrayKeys,
+  deleteTestNetworkAccount
 }

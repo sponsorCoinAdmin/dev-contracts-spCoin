@@ -33,7 +33,13 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
 
 getAccountArrayList = async() => {
     logFunctionHeader("getAccountArrayList()");
-    accountList = await spCoinContractDeployed.getAccountArrayList();
+    accountStr = await spCoinContractDeployed.getAccountArrayList();
+    accountList = accountStr.split("\n");
+    for(let idx = 0; idx < accountList.length; idx++) {
+        parts = accountList[idx].split(",");
+        parts[0] = parseInt(parts[0]).toString(10);
+        accountList[idx] = parts.join(",");
+    }
     return accountList;
 }
 

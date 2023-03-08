@@ -8,6 +8,7 @@ const {
   addTestNetworkSponsorAgents,
   addTestNetworkAccount,
   getTestHHAccountArrayKeys,
+  deleteTestNetworkAccount,
 } = require("./testMethods/scTestMethods");
 const { testHHAccounts } = require("./testMethods/hhTestAccounts");
 
@@ -78,6 +79,9 @@ describe("spCoinContract", function () {
     let accountArr = await loadTreeStructures(spCoinContractDeployed);
     logAccountStructure(accountArr);
     
+    accountArr = await getAccountArrayList();
+    console.log(accountArr);
+    await deleteTestNetworkAccount(1);
     accountArr = await getAccountArrayList();
     console.log(accountArr);
 

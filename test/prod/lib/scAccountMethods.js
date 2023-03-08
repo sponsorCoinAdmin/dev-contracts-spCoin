@@ -236,6 +236,13 @@ addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountAgentKeys) =>
   return agentCount;
 };
 
+////////////////////// DELETE ACCOUNT FUNCTIONS ///////////////////////
+deleteAccount = async (_accountKey) => {
+  logFunctionHeader("deleteAccount = async(" + _accountKey + ")");
+  logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
+  await spCoinContractDeployed.deleteAccount(_accountKey);
+};
+
 /////////////////////// EXPORT MODULE FUNCTIONS ///////////////////////
 
 module.exports = {
@@ -245,6 +252,7 @@ module.exports = {
   addPatreonSponsors,
   addSponsorAgent,
   addSponsorAgents,
+  deleteAccount,
   getAccountSize,
   getAccountRecord,
   getAccountKeys,
