@@ -4,6 +4,7 @@ const { AccountStruct,
         AgentStruct,
         RateHeaderStruct,
         TransactionStruct } = require("./dataTypes");
+const { logFunctionHeader } = require("./utils/logging");
 let spCoinContractDeployed;
 
 loadTreeStructures = async(_spCoinContractDeployed) => {
@@ -28,6 +29,12 @@ loadTreeStructures = async(_spCoinContractDeployed) => {
         accountStruct.accountAgentSponsorKeys = await getAccountAgentSponsorKeys(accountKey);
     }
     return accountArr;
+}
+
+getAccountArrayList = async() => {
+    logFunctionHeader("getAccountArrayList()");
+    accountList = await spCoinContractDeployed.getAccountArrayList();
+    return accountList;
 }
 
 //////////////////// LOAD ACCOUNT DATA //////////////////////
