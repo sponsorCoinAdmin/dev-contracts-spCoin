@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 import "../dataTypes/DataTypes.sol";
 
 import "hardhat/console.sol";

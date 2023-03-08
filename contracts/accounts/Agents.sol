@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.19;
 /// @title ERC20 Contract
 import "./Sponsors.sol";
 import "../utils/StructSerialization.sol";

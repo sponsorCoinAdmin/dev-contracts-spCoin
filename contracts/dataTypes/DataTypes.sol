@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.19;
 /// @title ERC20 Contract
 import "./KYC.sol";
 
@@ -15,7 +15,7 @@ contract DataTypes is KYC {
     //      of sharing "Proof of Stake" Patreon rewards.
     //    - An Agent finds Patreon(s) for any specific sponsor and receives a share of the 
     //      "Proof of Stake" reward allocation for this effort. 
-    // 3. Every Account can be a Patrion, Sponsor and/or agent to one or more mutually 
+    // 3. Every Account can be a Patreon, Sponsor and/or agent to one or more mutually 
     //    exclusive account(s).
     // 4. Every Sponsor can have a number of Patreon(s), Sponsor(s) and/or Agent(s)
     // 5. Every Sponsor has an array of rate structures
@@ -40,8 +40,8 @@ contract DataTypes is KYC {
         uint256 insertionTime;
         bool inserted;
         bool verified;
-        address[] accountSponsorKeys;      // If Patreon List of Sponsored Accounts
-        address[] accountAgentKeys;        // If Sponsor? List of Agent Accounts
+        address[] accountSponsorKeys;      // If Patreon List of Sponsored Accounts is not zero
+        address[] accountAgentKeys;        // If Sponsor? List of Agent Accounts is not zero
         address[] accountPatreonKeys;      // If Sponsor? List of Patreon Accounts
         address[] accountAgentSponsorKeys; // If Agent? List of Patreon Sponsor Accounts
         mapping(address => SponsorStruct) sponsorMap;

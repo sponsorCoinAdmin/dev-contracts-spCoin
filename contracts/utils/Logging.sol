@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // *** TdDo Not yet implemented *** //
-pragma solidity ^0.8.6;
+pragma solidity ^0.8.19;
 
 import "hardhat/console.sol";
 import "./StringUtils.sol";

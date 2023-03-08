@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.7;
+pragma solidity ^0.8.19;
 /// @title ERC20 Contract
 import "../utils/StructSerialization.sol";
 
@@ -139,18 +139,47 @@ contract Accounts is StructSerialization {
 
      /////////////////// DELETE ACCOUNT METHODS ////////////////////////
    
+    // 1. Require that Account Exists
+    // 2. Require that Account has No Sponsors, account.accountSponsorKeys must be zero (0).
+    // 2. Require that Account has No Agents, account.accountAgentKeys must be zero (0).
+    // 3. Require that Account is not a Sponsor.
+    // 4. Require that Account is not an Agent.
     function deleteAccount(address _accountKey) public view
-             onlyOwnerOrRootAdmin(_accountKey)
-             accountExists(_accountKey) {
-        // ToDo Complete this function
+            onlyOwnerOrRootAdmin(_accountKey)
+        accountExists (_accountKey) 
+        hasNoAgents(_accountKey)
+        hasNoSponsors(_accountKey)
+        isNotASponsor(_accountKey)
+        isNotAnAgent(_accountKey) {
+    //     // ToDo Complete this function
     }
 
     modifier accountExists (address _accountKey) {
-        require (isAccountInserted(_accountKey) , "_accountKey not found)");
+        require (isAccountInserted(_accountKey) , "Account not found)");
         _;
     }
 
-     /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
+    modifier hasNoAgents (address _accountKey) {
+        require (isAccountInserted(_accountKey) , "Account has Agents)");
+        _;
+    }
+
+    modifier hasNoSponsors (address _accountKey) {
+        require (isAccountInserted(_accountKey) , "Account Has Sponsors)");
+        _;
+    }
+
+    modifier isNotASponsor (address _accountKey) {
+        require (getAccountPatreonSize(_accountKey) == 0 , "Account is a Sponsor");
+        _;
+    }
+
+    modifier isNotAnAgent (address _accountKey) {
+        require (getAccountAgentSponsorSize(_accountKey) == 0 , "Account is a Agent");
+        _;
+    }
+
+    /////////////////// ACCOUNT SERIALIZATION REQUESTS ////////////////////////
 
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
