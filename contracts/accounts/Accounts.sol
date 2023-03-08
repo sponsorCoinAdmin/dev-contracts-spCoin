@@ -53,6 +53,8 @@ contract Accounts is StructSerialization {
         return accountIndex[_idx];
     }
 
+    
+
     /// @notice retreives the account record of a specific accountKey address.
     /// @param _accountKey public accountKey to set new balance
     function getAccountRecord(address _accountKey)
