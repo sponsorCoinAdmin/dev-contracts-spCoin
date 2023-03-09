@@ -190,26 +190,28 @@ contract Accounts is StructSerialization {
         removeAccount(_accountKey);
     }
 
-    function removeAccount(address account) 
-      internal {
-        console.log("removeAccount(", account, ")");  
-        console.log("accountIndex.length = ", accountIndex.length); 
+    function removeAccount(address _accountKey) 
+        internal {
+        // console.log("removeAccount(", _accountKey, ")");  
+        // console.log("accountIndex.length = ", accountIndex.length); 
         for (uint i = 0; i < accountIndex.length; i++) {
-            console.log("foundAccount(", accountIndex[i], ")");  
-            if (accountIndex[i] == account) {
-                console.log("Deleting address[ ", i, "] = ", accountIndex[i]);
+            // console.log("foundAccount(", accountIndex[i], ")");
+            if (accountIndex[i] == _accountKey) {
+                //AccountStruct storage accountStruct = getAccountRecord(accountIndex[i]);
+                // console.log("BEFORE accountStruct.accountKey = ", accountStruct.inserted);
+                // console.log("BEFORE accountStruct.inserted = ", accountStruct.accountKey);
+                delete accountMap[_accountKey];
+                // console.log("AFTER accountStruct.accountKey = ", accountStruct.accountKey);
+                // console.log("AFTER accountStruct.inserted = ", accountStruct.inserted);
+                // console.log("Deleting address[", i, "] = ", accountIndex[i]);
                 delete accountIndex[i];
-                while (i++ < accountIndex.length-1) { 
-                   accountIndex[i] = accountIndex[i+1];
-                   console.log("Resetted address[", i, "] =", accountIndex[i]);
+                while (i < accountIndex.length-1) { 
+                    accountIndex[i] = accountIndex[i+1];
+                    // console.log("Shifting address[", i, "] =", accountIndex[i]);
+                    i++;
                 }
                 accountIndex.pop();
             }
-        }
-
-        console.log("PRINT NEW accountIndex");
-        for (uint i = 0; i < accountIndex.length; i++) {
-            console.log("address[", i, "] = ", accountIndex[i]);
         }
     }
 

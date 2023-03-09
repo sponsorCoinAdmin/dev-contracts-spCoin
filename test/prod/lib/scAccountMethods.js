@@ -238,7 +238,8 @@ addSponsorAgents = async (_accountKey, _sponsorAccountKey, _accountAgentKeys) =>
 
 ////////////////////// DELETE ACCOUNT FUNCTIONS ///////////////////////
 deleteAccount = async (_accountKey) => {
-  logFunctionHeader("deleteAccount = async(" + _accountKey + ")");
+  logFunctionHeader("AAAA deleteAccount = async(" + _accountKey + ")");
+  log("deleteAccount = async(" + _accountKey + ")");
   logDetail("JS => Deleting Account " + _accountKey + " From Blockchain Network");
   await spCoinContractDeployed.deleteAccount(_accountKey);
 };
