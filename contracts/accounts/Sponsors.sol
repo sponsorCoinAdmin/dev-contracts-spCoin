@@ -19,12 +19,12 @@ contract Sponsors is Accounts {
         AccountStruct storage sponsorAccountRec = accountMap[_sponsorKey];
         SponsorStruct storage patreonSponsorRec = getPatreonSponsorRecByKeys(_patreonKey, _sponsorKey);
         if (!patreonSponsorRec.inserted) {
-            patreonSponsorRec.index = patreonAccountRec.accountSponsorKeys.length;
+            patreonSponsorRec.index = patreonAccountRec.accountChildSponsorKeys.length;
             patreonSponsorRec.insertionTime = block.timestamp;
             patreonSponsorRec.sponsorAccountKey = _sponsorKey;
             patreonSponsorRec.inserted = true;
-            patreonAccountRec.accountSponsorKeys.push(_sponsorKey);
-            sponsorAccountRec.accountPatreonKeys.push(_patreonKey);
+            patreonAccountRec.accountChildSponsorKeys.push(_sponsorKey);
+            sponsorAccountRec.accountParentPatreonKeys.push(_patreonKey);
         }
     }
 
@@ -69,22 +69,8 @@ contract Sponsors is Accounts {
     /// @param _sponsorIdx new sponsor to add to account list
     function getPatreonSponsorKeyByIndex(address _patreonKey, uint _sponsorIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
         AccountStruct storage accountRec = accountMap[_patreonKey];
-        address sponsor = accountRec.accountSponsorKeys[_sponsorIdx];
+        address sponsor = accountRec.accountChildSponsorKeys[_sponsorIdx];
         return sponsor;
-    }
-
-    /// @notice retreives the sponsor array record size a specific address.
-    /// @param _patreonKey public account key to get Sponsor Record Length
-    function getPatreonSponsorSize(address _patreonKey) public view onlyOwnerOrRootAdmin(_patreonKey) returns (uint) {
-        return getSponsorList(_patreonKey).length;
-    }
-
-    /// @notice retreives the sponsors of a specific address.
-    /// @param _patreonKey public account key to set new balance
-    function getSponsorList(address _patreonKey) internal onlyOwnerOrRootAdmin(_patreonKey) view returns (address[] memory) {
-        AccountStruct storage account = accountMap[_patreonKey];
-        address[] storage accountSponsorKeys = account.accountSponsorKeys;
-        return accountSponsorKeys;
     }
 
     /////////////////// DELETE SPONSOR METHODS ////////////////////////

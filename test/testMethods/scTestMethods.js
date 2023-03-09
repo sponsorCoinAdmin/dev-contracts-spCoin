@@ -46,9 +46,9 @@ addTestNetworkSponsorAgents = async ( _accountIdx, _sponsorIdx, _agentArrayIdx )
   logFunctionHeader("async (" + _accountIdx  + "," + _sponsorIdx + "," + _agentArrayIdx+ ")");
   let accountKey = testHHAccounts[_accountIdx].toLowerCase();
   let sponsorAccountKey = testHHAccounts[_sponsorIdx].toLowerCase();
-  let accountAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
+  let accountChildAgentKeys = getTestHHAccountArrayKeys(_agentArrayIdx);
 
-  await addSponsorAgents(accountKey, sponsorAccountKey, accountAgentKeys);
+  await addSponsorAgents(accountKey, sponsorAccountKey, accountChildAgentKeys);
   return sponsorAccountKey;
 };
 

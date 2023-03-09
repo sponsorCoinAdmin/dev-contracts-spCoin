@@ -4,13 +4,13 @@ require("hardhat-contract-sizer");
 module.exports = {
   solidity: {
     version: "0.8.19",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 1,
-      },
-      "viaIR": true,
-    }
+    // settings: {
+    //   optimizer: {
+    //     enabled: true,
+    //     runs: 1,
+    //   },
+    //   "viaIR": true,
+    // }
   },
   contractSizer: {
     alphaSort: true,

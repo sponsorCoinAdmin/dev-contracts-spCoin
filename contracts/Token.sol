@@ -8,7 +8,7 @@ import "./accounts/Sponsors.sol";
 import "./accounts/Agents.sol";
 
 //contract Token is AccountStakingManager{
-contract Token is AccountStakingManager{
+contract Token is Accounts {
 
     // My Variables
     string public name;

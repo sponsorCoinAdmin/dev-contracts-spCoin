@@ -21,13 +21,13 @@ contract Rates is Agents{
         AgentStruct storage  agentRec = getAgentRecordByKeys(_accountKey, _sponsorAccountKey, _agentAccountKey);
 
         if (!agentRec.inserted) {
-            agentRec.index = sponsorRec.accountAgentKeys.length;
+            agentRec.index = sponsorRec.accountChildAgentKeys.length;
             agentRec.insertionTime = block.timestamp;
             agentRec.account  = _accountKey;
             agentRec.sponsor  = _sponsorAccountKey;
             agentRec.agent    = _agentAccountKey;
             agentRec.inserted = true;
-            sponsorRec.accountAgentKeys.push(_agentAccountKey);
+            sponsorRec.accountChildAgentKeys.push(_agentAccountKey);
             return true;
         */
     }
