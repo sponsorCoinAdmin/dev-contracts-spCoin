@@ -68,10 +68,10 @@ getAccountRecord = async (_accountKey) => {
   return deSerializedAccountRec(serializedAccountRec);
 };
 
-getChildSponsorKeys = async (_accountKey) => {
-  logFunctionHeader("getChildSponsorKeys = async(" + _accountKey + ")");
+getChildSponsorSize = async (_accountKey) => {
+  logFunctionHeader("getChildSponsorSize = async(" + _accountKey + ")");
 
-  let maxSize = await spCoinContractDeployed.getChildSponsorKeys(_accountKey);
+  let maxSize = await spCoinContractDeployed.getChildSponsorSize(_accountKey);
   logDetail("JS => Found " + maxSize + " Sponsor Records For Account " + _accountKey
   );
   return maxSize;
@@ -86,10 +86,10 @@ getAccountPatreonSize = async (_accountKey) => {
   return maxSize;
 };
 
-getChildAccountAgentSize = async (_accountKey) => {
-  logFunctionHeader("getChildAccountAgentSize = async(" + _accountKey + ")");
+getAccountChildAgentSize = async (_accountKey) => {
+  logFunctionHeader("getAccountChildAgentSize = async(" + _accountKey + ")");
 
-  let maxSize = await spCoinContractDeployed.getChildAccountAgentSize(_accountKey);
+  let maxSize = await spCoinContractDeployed.getAccountChildAgentSize(_accountKey);
   logDetail("JS => Found " + maxSize + " Agent Records For Account " + _accountKey
   );
   return maxSize;
@@ -121,7 +121,7 @@ getAccountPatreonKeys = async (_accountKey) => {
 
 getPatreonSponsorKeys = async (_accountKey) => {
   logFunctionHeader("getPatreonSponsorKeys = async(" + _accountKey + ")");
-  let maxSize = await spCoinContractDeployed.getChildSponsorKeys(_accountKey);
+  let maxSize = await spCoinContractDeployed.getChildSponsorSize(_accountKey);
 
   let accountChildSponsorKeys = {};
 
@@ -134,7 +134,7 @@ getPatreonSponsorKeys = async (_accountKey) => {
 
 getAccountAgentKeys = async (_accountKey) => {
   logFunctionHeader("getAccountAgentKeys = async(" + _accountKey + ")");
-  let maxSize = await getChildAccountAgentSize(_accountKey);
+  let maxSize = await getAccountChildAgentSize(_accountKey);
 
   let accountChildAgentKeys = {};
 
@@ -184,7 +184,7 @@ getSponsorAgentKeys = async (_accountKey, _sponsorAccountKey) => {
 
   let accountChildAgentKeys = {};
   for (let idx = 0; idx < maxSize; idx++) {
-    let agent = await spCoinContractDeployed.getSponsorAgentKeyAddress(_accountKey, _sponsorAccountKey, idx);
+    let agent = await spCoinContractDeployed.getAccountChildAgentKeyByIdx(_accountKey, _sponsorAccountKey, idx);
     logDetail("JS => Agent[" + idx + "]: " + agent);
     accountChildAgentKeys[agent] = idx;
   }
@@ -257,7 +257,7 @@ module.exports = {
   getAccountSize,
   getAccountRecord,
   getAccountKeys,
-  getChildSponsorKeys,
+  getChildSponsorSize,
   getSponsorAgentKeys,
   getPatreonSponsorKeys,
   setCreateContract,

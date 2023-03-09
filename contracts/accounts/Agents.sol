@@ -68,9 +68,9 @@ contract Agents is Sponsors {
     /// @notice get address for an account sponsor
     /// @param _sponsorKey public account key to get agent array
     /// @param _agentIdx new agent to add to account list
-    function getSponsorAgentKeyAddress(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
-        address[] memory agentList = getAccountChildAgentKeys(_patreonKey, _sponsorKey);
-        address agentAddress = agentList[_agentIdx];
+    function getAccountChildAgentKeyByIdx(address _patreonKey, address _sponsorKey, uint _agentIdx ) public view onlyOwnerOrRootAdmin(msg.sender) returns (address) {
+        address[] memory childAgentKeys = getAccountChildAgentKeys(_patreonKey, _sponsorKey);
+        address agentAddress = childAgentKeys[_agentIdx];
         return agentAddress;
     }
 
